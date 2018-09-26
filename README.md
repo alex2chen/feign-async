@@ -9,7 +9,7 @@
     服务注册与监听：LBClientFactory》ClientFactory.getNamedConfig》DynamicServerListLoadBalancer(根据serverId获取serverList)》DiscoveryEnabledNIWSServerList(链接Eureka client)
 
 ##  功能上（异步支持）
-    至少应该能返回Future吧，先做这个吧，后续再弄异步回调支持
+- [x] 支持返回Future
 
 ## 快速开始([QuickStart](src/test/java/com/github/feign/QuickStart.java))
 ### 第一步，自定义contract
