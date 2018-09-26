@@ -28,6 +28,6 @@ public class QuickStart {
         System.out.println(String.format("调用结果:%s", result));
         //异步
         Future<Map<String, Object>> result2 = payContract.getPayStatusSupplyAsync(Maps.newHashMap("orderIds", Lists.newArrayList("09fd82b3fb084438a245d564dc8af965")));
-        System.out.println("end。");
+        System.out.println("end");
     }
 }
