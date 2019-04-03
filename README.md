@@ -990,10 +990,12 @@ public class DiscoveryEnabledNIWSServerList extends AbstractServerList<Discovery
 ```
 
 ### 尚需完善（不足）
-    上面的方案的确是抛弃了很多Feign很多特效，比如原本知道断路器方面就不行，那要怎么弥补呢？
-    首先我们看看源码，HystrixFeign》HystrixInvocationHandler.invoke，这其实就是一个命令模式，使用到了rxjava高级库，那问题来了？
-    rxjava简直就是雌雄(同步/异步)同体，如果它有提供对外api(Single、Completable)，那是不是就可以放弃上面的的做法，自己去兼容实现呢？
-    答案是肯定的，不过这个要对rxjava足够的了解。看下面关键代码：
+上面的方案的确是抛弃了很多Feign很多特效，比如原本知道断路器方面就不行，那要怎么弥补呢？
+  首先我们看看源码，HystrixFeign》HystrixInvocationHandler.invoke，这其实就是一个命令模式，使用到了rxjava高级库，那问题来了？
+  
+  rxjava简直就是雌雄(同步/异步)同体，如果它有提供对外api(Single、Completable)，那是不是就可以放弃上面的的做法，自己去兼容实现呢？
+  
+  答案是肯定的，不过这个要对rxjava足够的了解。看下面关键代码：
 ```java
     //引用HystrixInvocationHandler的148行
     if (isReturnsHystrixCommand(method)) {
