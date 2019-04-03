@@ -7,7 +7,9 @@
 >Declarative REST Client: Feign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.
 ---
   Feign 支持两种不同的注解（feign的注解和springmvc的注解）来描述接口，简化了 Java HTTP Client 的调用过程，隐藏了实现细节。
+  
   **用法**
+  
   Feign 的精华是一种设计思想，它设计了一种全新的HTTP调用方式，屏蔽了具体的调用细节，与Spring MVC 注解的结合更是极大提高了效率(没有重复造轮子，又设计一套新注解。Hystrix 支持 fallback(降级)的概念，在熔断器打开或发生异常时可以执行默认的代码。如果要对某个@FeignClient 启用 fallback，只需要设置 fallback 属性即可。
 ```java
 @FeignClient(name = "USER", fallbackFactory = UserServiceFallback.class)
@@ -301,11 +303,13 @@ FeignClientFactoryBean是核心，基于每个FeignClient实现了客户端Contr
   Targeter提供了对target接口（Feign.Builder.target的封装）
  - DefaultTargeter调用的feign.target（未做任何处理）
  - HystrixTargeter调用的HystrixFeign.Builder.target（集成了Hystrix）
+ 
   Client接口提供了execute
  - Client.Default是对Client的实现（基于jdk的get/post）
  - HttpClientFeignConfiguration.feignClient()是封装了LoadBalancerFeignClient和apache HttpClient
  - OkHttpFeignConfiguration.feignClient()是封装了LoadBalancerFeignClient和okhttp
  - LoadBalancerFeignClient提供了负载均衡，它是在FeignRibbonClientAutoConfiguration中通过@Import
+ 
   其实读spring cloud-feign源码的技巧就是深入研究FeignClientFactoryBean的依赖，基本上花些时间都可以看懂！
 ```java
 class FeignClientFactoryBean implements FactoryBean<Object>, InitializingBean, ApplicationContextAware {
@@ -665,6 +669,7 @@ final class HystrixInvocationHandler implements InvocationHandler {
 #### 与ribbon的集成
 这时你可能会问Feign是怎样实现负载均衡的呢？
   这个不难理解，肯定是集成ribbon实现的，其实构建客户端Contract时就有这样的API：
+  
   HystrixFeign.Builder.client(Client client) ，而client就实现了负载均衡。client的创建是通过RibbonClient.builder().delegate(new Client.Default(null, null)).build()完成的。
 ```java
 public interface Client {
