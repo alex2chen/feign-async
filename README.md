@@ -1,12 +1,25 @@
 ## 背景
     为啥要写这个呢？
     最近一直在关注springcloud，也陆续有一些项目引入了这个技术栈，本项目将对大家最为熟悉的组件feign进行拓展，主要是异步上的支持，毕竟百度搜这个，网上的解决方案比较单一。
+    
+## 知识储备
+### 什么是Feign
+[spring-cloud-openfeign 在 Github 描述了其特性](https://github.com/spring-cloud/spring-cloud-openfeign):<p/>
+Declarative REST Client: Feign creates a dynamic implementation of an interface decorated with JAX-RS or Spring MVC annotations.<p/>
+Feign 支持两种不同的注解（feign的注解和springmvc的注解）来描述接口，简化了 Java HTTP Client 的调用过程，隐藏了实现细节。<p/>
+用法<br/>
+Feign 的精华是一种设计思想，它设计了一种全新的HTTP调用方式，屏蔽了具体的调用细节，与Spring MVC 注解的结合更是极大提高了效率(没有重复造轮子，又设计一套新注解。Hystrix 支持 fallback(降级)的概念，在熔断器打开或发生异常时可以执行默认的代码。如果要对某个@FeignClient 启用 fallback，只需要设置 fallback 属性即可。
+```java
+@FeignClient(name = "USER", fallbackFactory = UserServiceFallback.class)
+public interface UserService {
+    @GetMapping("/users/{id}")
+    User getUser(@PathVariable("id") String id);
+}
+```
+注：如果你是spring-boot项目这样就可以了，非常简单。
 
 ##  该如何入手？
-    开始源码剥析。。。。
-    构建：HystrixFeign》ReflectiveFeign（包含dispatch）
-    请求执行过程：FeignInvocationHandler》SynchronousMethodHandler（invoke方法）》Client.Default
-    服务注册与监听：LBClientFactory》ClientFactory.getNamedConfig》DynamicServerListLoadBalancer(根据serverId获取serverList)》DiscoveryEnabledNIWSServerList(链接Eureka client)
+考虑到公司中很多系统都是老系统（基于springmvc3.2.x，非springboot项目），不能直接接入spring-cloud-starter-feign。需要先了解spring-cloud-starter-feign的源码，然后再了解feign-hystrix源码。
 
 ##  功能上（异步支持）
 - [x] 支持返回Future
