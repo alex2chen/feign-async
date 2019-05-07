@@ -24,7 +24,7 @@ public class FeighAsyncConfiguration {
     public ContractRegistryCenter initContractAgent() {
         //TODO:后期（使用扫描来完成自动注入）
         List<ContractBean> contractBeans = Lists.newArrayList();
-        contractBeans.add(new ContractBean("kxtx-gps", PayContract.class));
+        contractBeans.add(new ContractBean("github-gps", PayContract.class));
         ContractRegistryCenter registryCenter = new ContractRegistryCenter();
         registryCenter.setContracts(contractBeans);
         return registryCenter;

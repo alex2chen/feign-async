@@ -443,16 +443,16 @@ private T createObjectNative() {
 ```bash
 eureka.serviceUrl.default=http://xxxx.cn/eureka
 eureka.region=default
-eureka.name=kxtx-test
+eureka.name=github-test
 eureka.vipAddress=
 eureka.port=8081
 eureka.preferSameZone=true
 eureka.shouldUseDns=false
 eureka.us-east-1.availabilityZones=default
 hystrix.command.default.execution.timeout.enabled=false
-kxtx-gps.ribbon.NFLoadBalancerClassName=com.netflix.loadbalancer.DynamicServerListLoadBalancer
-kxtx-gps.ribbon.NIWSServerListClassName=com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
-kxtx-gps.ribbon.DeploymentContextBasedVipAddresses=kxtx-gps
+github-gps.ribbon.NFLoadBalancerClassName=com.netflix.loadbalancer.DynamicServerListLoadBalancer
+github-gps.ribbon.NIWSServerListClassName=com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+github-gps.ribbon.DeploymentContextBasedVipAddresses=github-gps
 ```
 #### 主要类及其层次结构
 ![](https://img-blog.csdn.net/20180928000929507 "")
@@ -972,13 +972,13 @@ public class DiscoveryEnabledNIWSServerList extends AbstractServerList<Discovery
 ## 快速开始([QuickStart](src/test/java/com/github/feign/QuickStart.java))
 ### 第一步，自定义contract
 ```java
-    @RequestLine("POST /kxtx-gps/pay/getStatus")
+    @RequestLine("POST /github-gps/pay/getStatus")
     Future<Map<String, Object>> getPayStatusSupplyAsync(Map<String, List<String>> batchNos);
 ```
 ### 第二步，实例化contract及调用
 ```java
     List<ContractBean> contractBeans = Lists.newArrayList();
-    contractBeans.add(new ContractBean("kxtx-gps", PayContract.class));
+    contractBeans.add(new ContractBean("github-gps", PayContract.class));
     ContractRegistryCenter registryCenter = new ContractRegistryCenter();
     registryCenter.setContracts(contractBeans);
     return registryCenter;

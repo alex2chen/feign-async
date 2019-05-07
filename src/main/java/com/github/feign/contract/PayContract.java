@@ -13,8 +13,8 @@ import java.util.concurrent.Future;
 @Headers("Content-Type: application/json")
 public interface PayContract {
 
-    @RequestLine("POST /kxtx-gps/pay/getStatus")
+    @RequestLine("POST /github-gps/pay/getStatus")
     Map<String, Object> getPayStatus(Map<String, List<String>> batchNos);
-    @RequestLine("POST /kxtx-gps/pay/getStatus")
+    @RequestLine("POST /github-gps/pay/getStatus")
     Future<Map<String, Object>> getPayStatusSupplyAsync(Map<String, List<String>> batchNos);
 }
