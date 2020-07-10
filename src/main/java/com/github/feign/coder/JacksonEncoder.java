@@ -39,4 +39,8 @@ public class JacksonEncoder implements Encoder {
             throw new EncodeException(var5.getMessage(), var5);
         }
     }
+
+    public ObjectMapper getMapper() {
+        return mapper;
+    }
 }

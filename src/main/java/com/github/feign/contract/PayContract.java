@@ -5,6 +5,7 @@ import feign.RequestLine;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 /**
@@ -17,4 +18,6 @@ public interface PayContract {
     Map<String, Object> getPayStatus(Map<String, List<String>> batchNos);
     @RequestLine("POST /github-gps/pay/getStatus")
     Future<Map<String, Object>> getPayStatusSupplyAsync(Map<String, List<String>> batchNos);
+    @RequestLine("POST /github-gps/pay/getStatus")
+    CompletableFuture<Map<String, Object>> getPayStatusSupplyAsync2(Map<String, List<String>> batchNos);
 }
